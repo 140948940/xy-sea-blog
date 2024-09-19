@@ -12,7 +12,7 @@
 
 效果演示：
 
-![video.gif](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d7cec0ead4704c1eba109c3d64bb98b7~tplv-k3u1fbpfcp-watermark.image?)
+![video.gif](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d7cec0ead4704c1eba109c3d64bb98b7~tplv-k3u1fbpfcp-watermark.image)
 
 录屏记录了用户的所有操作，红色的线代表了鼠标的移动轨迹
 
@@ -32,8 +32,8 @@ SourceMap 完美解决了代码反解的问题，项目在打包时，除了生�
 
 ```js
 var add = function (x, y) {
-  return x + y;
-};
+  return x + y
+}
 //# sourceMappingURL=app.a2a3ceec.js.map
 ```
 
@@ -139,36 +139,36 @@ ErrorStackParser.parse(new Error('BOOM'));
 ```js
 function c() {
   try {
-    var bar = baz;
-    throw new Error();
+    var bar = baz
+    throw new Error()
   } catch (e) {
-    console.log(e.stack);
+    console.log(e.stack)
   }
 }
 function b() {
-  c();
+  c()
 }
 function a() {
-  b();
+  b()
 }
-a();
+a()
 ```
 
 上述代码中会在执行到 c 函数的时候报错，调用栈为 a -> b -> c，如下图所示：
 
-![stack.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/df327d21999a456dbfc0390ca019e846~tplv-k3u1fbpfcp-watermark.image?)
+![stack.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/df327d21999a456dbfc0390ca019e846~tplv-k3u1fbpfcp-watermark.image)
 
 一般我们只需要定位到 c 函数的堆栈信息，所以使用 error-stack-parser 库的时候，只取 StackFrame 数组中的第一个元素
 
 最终代码：
 
 ```js
-import ErrorStackParser from 'error-stack-parser';
+import ErrorStackParser from 'error-stack-parser'
 
 // 取StackFrame数组中的第一个元素
-let stackFrame = ErrorStackParser.parse(error)[0];
+let stackFrame = ErrorStackParser.parse(error)[0]
 // 获取对应的原始文件名、行和列信息，并上报
-let { fileName, columnNumber, lineNumber } = stackFrame;
+let { fileName, columnNumber, lineNumber } = stackFrame
 ```
 
 ### 示例演示
@@ -179,27 +179,27 @@ let { fileName, columnNumber, lineNumber } = stackFrame;
 
 codeErr 的源码为：
 
-![codeErr.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1d1161baacbf41e792c142eb7daf3081~tplv-k3u1fbpfcp-watermark.image?)
+![codeErr.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1d1161baacbf41e792c142eb7daf3081~tplv-k3u1fbpfcp-watermark.image)
 
 2）Vue.config.errorHander 中捕获到报错信息为：
 
-![length.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ccd49dc7b6c044c19fb86ad995bfe6c7~tplv-k3u1fbpfcp-watermark.image?)
+![length.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ccd49dc7b6c044c19fb86ad995bfe6c7~tplv-k3u1fbpfcp-watermark.image)
 
 3）使用 ErrorStackParser.parse 解析后的 stackFrame 为：
 
-![stackFrame.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3005695c19914239bfce98f604786042~tplv-k3u1fbpfcp-watermark.image?)
+![stackFrame.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3005695c19914239bfce98f604786042~tplv-k3u1fbpfcp-watermark.image)
 
 4）经过 consumer.originalPositionFor 还原后的 result 结果为：
 
-![result.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/419738f017e946b2af2e0bd4f6052194~tplv-k3u1fbpfcp-watermark.image?)
+![result.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/419738f017e946b2af2e0bd4f6052194~tplv-k3u1fbpfcp-watermark.image)
 
 5）最终拿到的源码：
 
-![code.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ac9bd0c70154496a872fcfda1dfcc259~tplv-k3u1fbpfcp-watermark.image?)
+![code.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ac9bd0c70154496a872fcfda1dfcc259~tplv-k3u1fbpfcp-watermark.image)
 
 ### 流程总结
 
-![sourcemap.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/15e69b9ac2c44370adafb627c65ef26a~tplv-k3u1fbpfcp-watermark.image?)
+![sourcemap.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/15e69b9ac2c44370adafb627c65ef26a~tplv-k3u1fbpfcp-watermark.image)
 
 如上图所示，定位源码流程总结：
 
@@ -222,22 +222,22 @@ web-see 监控通过  [rrweb](https://github.com/rrweb-io/rrweb)  提供了前
 录制示例：
 
 ```js
-import { record } from 'rrweb';
+import { record } from 'rrweb'
 // events存储录屏信息
-let events = [];
+let events = []
 // record 用于记录 `DOM` 中的所有变更
 rrweb.record({
   emit(event, isCheckout) {
     // isCheckout 是一个标识，告诉你重新制作了快照
     if (isCheckout) {
-      events.push([]);
+      events.push([])
     }
-    events.push(event);
+    events.push(event)
   },
   recordCanvas: true, // 记录 canvas 内容
   checkoutEveryNms: 10 * 1000, // 每10s重新制作快照
-  checkoutEveryNth: 200 // 每 200 个 event 重新制作快照
-});
+  checkoutEveryNth: 200, // 每 200 个 event 重新制作快照
+})
 ```
 
 播放示例：
@@ -300,16 +300,16 @@ rrweb 整体流程：
 ```js
 rrweb.record({
   emit(event) {},
-  packFn: rrweb.pack
-});
+  packFn: rrweb.pack,
+})
 ```
 
 回放时，需要传入 rrweb.unpack 作为  `unpackFn`  传入
 
 ```js
 const replayer = new rrweb.Replayer(events, {
-  unpackFn: rrweb.unpack
-});
+  unpackFn: rrweb.unpack,
+})
 ```
 
 但是官方提供的压缩方式，是对每个 event 数据单独进行压缩，压缩比不高。实测下来，压缩比在 70%左右，比如原来 8M 的数据，压缩后为 2.4M 左右
@@ -321,62 +321,67 @@ web-see 内部使用 **[pako.js](https://www.npmjs.com/package/pako)、[js-base6
 压缩代码示例：
 
 ```js
-import pako from 'pako';
-import { Base64 } from 'js-base64';
+import pako from 'pako'
+import { Base64 } from 'js-base64'
 
 // 压缩
 export function zip(data) {
-  if (!data) return data;
+  if (!data) return data
   // 判断数据是否需要转为JSON
   const dataJson =
-    typeof data !== 'string' && typeof data !== 'number' ? JSON.stringify(data) : data;
+    typeof data !== 'string' && typeof data !== 'number'
+      ? JSON.stringify(data)
+      : data
   // 使用Base64.encode处理字符编码，兼容中文
-  const str = Base64.encode(dataJson);
-  let binaryString = pako.gzip(str);
-  let arr = Array.from(binaryString);
-  let s = '';
-  arr.forEach((item) => {
-    s += String.fromCharCode(item);
-  });
-  return Base64.btoa(s);
+  const str = Base64.encode(dataJson)
+  let binaryString = pako.gzip(str)
+  let arr = Array.from(binaryString)
+  let s = ''
+  arr.forEach(item => {
+    s += String.fromCharCode(item)
+  })
+  return Base64.btoa(s)
 }
 ```
 
 解压代码示例：
 
 ```js
-import { Base64 } from 'js-base64';
-import pako from 'pako';
+import { Base64 } from 'js-base64'
+import pako from 'pako'
 
 // 解压
 export function unzip(b64Data) {
-  let strData = Base64.atob(b64Data);
+  let strData = Base64.atob(b64Data)
   let charData = strData.split('').map(function (x) {
-    return x.charCodeAt(0);
-  });
-  let binData = new Uint8Array(charData);
-  let data = pako.ungzip(binData);
+    return x.charCodeAt(0)
+  })
+  let binData = new Uint8Array(charData)
+  let data = pako.ungzip(binData)
   // ↓切片处理数据，防止内存溢出报错↓
-  let str = '';
-  const chunk = 8 * 1024;
-  let i;
+  let str = ''
+  const chunk = 8 * 1024
+  let i
   for (i = 0; i < data.length / chunk; i++) {
-    str += String.fromCharCode.apply(null, data.slice(i * chunk, (i + 1) * chunk));
+    str += String.fromCharCode.apply(
+      null,
+      data.slice(i * chunk, (i + 1) * chunk)
+    )
   }
-  str += String.fromCharCode.apply(null, data.slice(i * chunk));
+  str += String.fromCharCode.apply(null, data.slice(i * chunk))
   // ↑切片处理数据，防止内存溢出报错↑
-  const unzipStr = Base64.decode(str);
-  let result = '';
+  const unzipStr = Base64.decode(str)
+  let result = ''
   // 对象或数组进行JSON转换
   try {
-    result = JSON.parse(unzipStr);
+    result = JSON.parse(unzipStr)
   } catch (error) {
     if (/Unexpected token o in JSON at position 0/.test(error)) {
       // 如果没有转换成功，代表值为基本数据，直接赋值
-      result = unzipStr;
+      result = unzipStr
     }
   }
-  return result;
+  return result
 }
 ```
 
@@ -436,7 +441,7 @@ handleScreen() {
 
 演示示例：
 
-![canvas.gif](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a2a49f1a513b4fc7a5437d81747bdf61~tplv-k3u1fbpfcp-watermark.image?)
+![canvas.gif](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a2a49f1a513b4fc7a5437d81747bdf61~tplv-k3u1fbpfcp-watermark.image)
 
 录屏中可以显示页面中的 canvas 图形，以及鼠标悬浮时的图形提示信息
 
@@ -448,18 +453,18 @@ new rrwebPlayer({
   props: {
     events: result,
     // 回放时开启回放 canvas 内容
-    UNSAFE_replayCanvas: true
-  }
-});
+    UNSAFE_replayCanvas: true,
+  },
+})
 ```
 
 rrweb [官方配置](https://github.com/rrweb-io/rrweb/blob/master/docs/recipes/canvas.zh_CN.md) 如下：
 
-![Canvas.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f6108f834bf14d3384a866a4b013d17e~tplv-k3u1fbpfcp-watermark.image?)
+![Canvas.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f6108f834bf14d3384a866a4b013d17e~tplv-k3u1fbpfcp-watermark.image)
 
 [测试 demo](https://github.com/xy-sea/blog/tree/dev/rrweb) 如下：
 
-![echart.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8e2dc3784c5e4b22a60a4ff12505793f~tplv-k3u1fbpfcp-watermark.image?)
+![echart.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8e2dc3784c5e4b22a60a4ff12505793f~tplv-k3u1fbpfcp-watermark.image)
 
 感谢@千山暮雪 c 的指导，搞懂了 rrweb 中关于 Canvas 的配置 😘😘
 
@@ -473,4 +478,4 @@ rrweb [官方配置](https://github.com/rrweb-io/rrweb/blob/master/docs/recipes/
 
 天冷了，别忘了穿秋裤撒
 
-<img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e21d5e53654e4e56b3f929b3db7ca2b6~tplv-k3u1fbpfcp-watermark.image?" alt="cool.jpg" width="30%" />
+<img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e21d5e53654e4e56b3f929b3db7ca2b6~tplv-k3u1fbpfcp-watermark.image" alt="cool.jpg" width="30%" />

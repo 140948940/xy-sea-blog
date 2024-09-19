@@ -11,7 +11,7 @@
 
 如 [vuejs](https://github.com/vuejs/core) 所示，所有子项目都在 packages 目录中
 
-![image.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4bf19340207b4402924a9929842916f5~tplv-k3u1fbpfcp-watermark.image?)
+![image.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4bf19340207b4402924a9929842916f5~tplv-k3u1fbpfcp-watermark.image)
 
 本篇作为 [web-see](https://github.com/xy-sea/web-see) 前端监控的架构篇，主要聊聊如何使用 monorepo，以及带来的好处有哪些？
 
@@ -54,7 +54,7 @@ pnpm init
 在根目录下存在  `pnpm-workspace.yaml`  文件，用来指定工作空间的目录
 
 ```js
-packages: -'packages/*';
+packages: -'packages/*'
 ```
 
 3、创建 packages 目录
@@ -63,26 +63,26 @@ packages: -'packages/*';
 
 在 pkg1 和 pkg2 的 src 目录下创建  `index.ts`  文件，作为项目的入口文件
 
-![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/71b2919d46584e1fa98186227932e410~tplv-k3u1fbpfcp-watermark.image?)
+![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/71b2919d46584e1fa98186227932e410~tplv-k3u1fbpfcp-watermark.image)
 
 ```js
 // pkg1/src/index.ts
 
 export function pk1(): any {
-  console.log('I am pk1');
+  console.log('I am pk1')
 }
 ```
 
 ```js
 // pkg2/src/index.ts
 
-import { pk1 } from '@websee/pk1';
+import { pk1 } from '@websee/pk1'
 
 function pk2() {
-  pk1();
-  console.log('I am pk2');
+  pk1()
+  console.log('I am pk2')
 }
-export default pk2;
+export default pk2
 ```
 
 4、修改 pkg1 和 pkg2 中 `package.json` 的 `name` 属性
@@ -91,7 +91,7 @@ export default pk2;
 
 **注意: 这个组织名一定要提前创建好，否则各工程相互引用时会报错**
 
-![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7a2dc72cff9c43069fed792c44f6ccac~tplv-k3u1fbpfcp-watermark.image?)
+![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7a2dc72cff9c43069fed792c44f6ccac~tplv-k3u1fbpfcp-watermark.image)
 
 5、修改 pkg1 和 pkg2 `package.json` 中的 `main` 属性
 
@@ -124,7 +124,7 @@ export default pk2;
 
 ```js
 // pkg2/src/index.ts
-import { pk1 } from '../../pk1/src';
+import { pk1 } from '../../pk1/src'
 ```
 
 这种相对路径的写法很繁琐且不易维护，如果当某一工程的目录结构发生变化时，其他所有引用该工程的文件都要修改
@@ -133,7 +133,7 @@ pnpm  通过  workspace 的实现，可以通过直接引用子工程的 name 
 
 ```js
 // pkg2/src/index.ts
-import { pk1 } from '@websee/pk1';
+import { pk1 } from '@websee/pk1'
 ```
 
 `pnpm`  提供了  [--filter](https://link.juejin.cn/?target=https%3A%2F%2Fpnpm.io%2Fzh%2Ffiltering 'https://pnpm.io/zh/filtering')  参数，可以用来对特定的 package 进行操作
@@ -164,11 +164,11 @@ pnpm install rollup@2.78.0 rollup-plugin-typescript2@0.34.1 typescript@4.9.4 -wD
 创建`rollup.config.js`
 
 ```js
-import fs from 'fs';
-import path from 'path';
-import typescript from 'rollup-plugin-typescript2';
-const packagesDir = path.resolve(__dirname, 'packages');
-const packageFiles = fs.readdirSync(packagesDir);
+import fs from 'fs'
+import path from 'path'
+import typescript from 'rollup-plugin-typescript2'
+const packagesDir = path.resolve(__dirname, 'packages')
+const packageFiles = fs.readdirSync(packagesDir)
 function output(path) {
   return [
     {
@@ -178,24 +178,24 @@ function output(path) {
           file: `./packages/${path}/dist/index.js`,
           format: 'umd',
           name: 'web-see',
-          sourcemap: true
-        }
+          sourcemap: true,
+        },
       ],
       plugins: [
         typescript({
           tsconfigOverride: {
             compilerOptions: {
-              module: 'ESNext'
-            }
+              module: 'ESNext',
+            },
           },
-          useTsconfigDeclarationDir: true
-        })
-      ]
-    }
-  ];
+          useTsconfigDeclarationDir: true,
+        }),
+      ],
+    },
+  ]
 }
 
-export default [...packageFiles.map((path) => output(path)).flat()];
+export default [...packageFiles.map(path => output(path)).flat()]
 ```
 
 rollup.config.js 会读取 packages 文件中各子目录的名称，并将每一个目录设置成打包的入口文件，并配置对应的出口路径
@@ -251,31 +251,31 @@ pnpm changeset init
 
 1、选择要发布的包
 
-![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/27ace4eb44264250bf2eb4752aca2b10~tplv-k3u1fbpfcp-watermark.image?)
+![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/27ace4eb44264250bf2eb4752aca2b10~tplv-k3u1fbpfcp-watermark.image)
 
 2、发布 minor，选择对应的包
 
 现在是 1.0.0 更新为 1.1.0，这里选择 minor
 
-![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/947ad3a8e6c448c8949ac86b6a9f3227~tplv-k3u1fbpfcp-watermark.image?)
+![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/947ad3a8e6c448c8949ac86b6a9f3227~tplv-k3u1fbpfcp-watermark.image)
 
 3、填写 changelog
 
-![image.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ef2b864916ec403c8612395097ea9e88~tplv-k3u1fbpfcp-watermark.image?)
+![image.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ef2b864916ec403c8612395097ea9e88~tplv-k3u1fbpfcp-watermark.image)
 
 4、Is this your desired changeset 选择 true
 
-![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b321231e6b094b08ac545a2257562a97~tplv-k3u1fbpfcp-watermark.image?)
+![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b321231e6b094b08ac545a2257562a97~tplv-k3u1fbpfcp-watermark.image)
 
 #### 执行 `pnpm run packages-version`
 
-![image.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/58687e0b549e454f83b42840ed609d72~tplv-k3u1fbpfcp-watermark.image?)
+![image.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/58687e0b549e454f83b42840ed609d72~tplv-k3u1fbpfcp-watermark.image)
 
 提示 `All files have been updated`
 
 打开 pk1 和 pk2 下的 package.json，发现版本号已修改完成
 
-![image.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ebbb2077ab544035b22053ac5665af45~tplv-k3u1fbpfcp-watermark.image?)
+![image.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ebbb2077ab544035b22053ac5665af45~tplv-k3u1fbpfcp-watermark.image)
 
 同时各目录下会自动生成 `CHANGELOG.md` 文件，记录版本号的变化
 
@@ -294,11 +294,11 @@ pnpm changeset init
 
 发布 1.1.0 版本
 
-![image.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5ba1b5f4917e49de82a0d190f069ca28~tplv-k3u1fbpfcp-watermark.image?)
+![image.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5ba1b5f4917e49de82a0d190f069ca28~tplv-k3u1fbpfcp-watermark.image)
 
 在 npm 官网上搜索 `@websee/pk1`，证明发布成功
 
-![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b46daf438ef343e1be9e1ab18d8e359f~tplv-k3u1fbpfcp-watermark.image?)
+![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b46daf438ef343e1be9e1ab18d8e359f~tplv-k3u1fbpfcp-watermark.image)
 
 ### npm 包 1.1.0 更新为 2.1.0
 
@@ -308,7 +308,7 @@ pnpm changeset init
 
 不同点在于选择发布 `major`，剩余的流程和上面的都一样
 
-![image.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a75d15f5bed643789437d34949c4414f~tplv-k3u1fbpfcp-watermark.image?)
+![image.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a75d15f5bed643789437d34949c4414f~tplv-k3u1fbpfcp-watermark.image)
 
 ## 为何要使用 monorepo 架构搭建前端监控
 
@@ -318,7 +318,7 @@ pnpm changeset init
 
 1、这些功能的代码全部耦合在一起，随着 SDK 功能的增多，体积越来越大，打包后的体积为 `147K`
 
-![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/49bf45744cb2429f9c10365530957be1~tplv-k3u1fbpfcp-watermark.image?)
+![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/49bf45744cb2429f9c10365530957be1~tplv-k3u1fbpfcp-watermark.image)
 
 2、有些用户用不到某些功能，不希望加载该插件，以减少 SDK 体积
 
@@ -336,7 +336,7 @@ pnpm changeset init
 
 3、用户想要自定义扩展其他功能，可以继续在 packages 添加新的模块，并且模块间相互引用更加方便快捷
 
-![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9092992909e443e59d1cddb5a1a869ed~tplv-k3u1fbpfcp-watermark.image?)
+![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9092992909e443e59d1cddb5a1a869ed~tplv-k3u1fbpfcp-watermark.image)
 
 当前的 packages 目录
 
@@ -406,20 +406,20 @@ export abstract class BasePlugin {
 
 ```js
 function use(plugin: any, option: any) {
-  const instance = new plugin(option);
+  const instance = new plugin(option)
   if (
     !subscribeEvent({
-      callback: (data) => {
-        instance.transform(data);
+      callback: data => {
+        instance.transform(data)
       },
-      type: instance.type
+      type: instance.type,
     })
   )
-    return;
+    return
   nativeTryCatch(() => {
     // 执行插件的core方法
-    instance.core({ transportData, breadcrumb, options, notify });
-  });
+    instance.core({ transportData, breadcrumb, options, notify })
+  })
 }
 ```
 
@@ -428,9 +428,9 @@ function use(plugin: any, option: any) {
 以下为 vue2 的安装说明
 
 ```js
-import webSee from '@websee/core';
-import performance from '@websee/performance';
-import recordscreen from '@websee/recordscreen';
+import webSee from '@websee/core'
+import performance from '@websee/performance'
+import recordscreen from '@websee/recordscreen'
 
 Vue.use(webSee, {
   dsn: 'http://test.com/reportData',
@@ -441,20 +441,21 @@ Vue.use(webSee, {
   userId: '123',
   handleHttpStatus(data) {
     // (自定义 hook) 根据接口返回的 response 判断请求是否正确
-    let { url, response } = data;
-    let { code } = typeof response === 'string' ? JSON.parse(response) : response;
+    let { url, response } = data
+    let { code } =
+      typeof response === 'string' ? JSON.parse(response) : response
     if (url.includes('/getErrorList')) {
-      return code === 200 ? true : false;
+      return code === 200 ? true : false
     } else {
-      return true;
+      return true
     }
-  }
-});
+  },
+})
 
 // 注册性能检测插件
-webSee.use(performance);
+webSee.use(performance)
 // 注册页面录屏插件
-webSee.use(recordscreen);
+webSee.use(recordscreen)
 ```
 
 最后通过 changesets 来管理各个模块的版本，统一发布

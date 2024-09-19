@@ -14,7 +14,7 @@
 1、先说明下，chrome 和 safari 两个浏览器原生的滚动条样式相差非常大，我是搞了三四年前端开发才知道的（请原谅我，我是个穷逼，一直没用过 mac）。  
 下图是两者的对比，并且 safari 浏览器鼠标放到滑块上后，滑块的宽度还会变大，有一个明显的交互效果变化
 
-![Safari.jpg](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/82d394d932bd4ec59c93befd7998a8e8~tplv-k3u1fbpfcp-watermark.image?)  
+![Safari.jpg](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/82d394d932bd4ec59c93befd7998a8e8~tplv-k3u1fbpfcp-watermark.image)  
 2、因为不同浏览器的滚动条外观是不一样的。虽然也可以直接修改 CSS3 中的 `::-webkit-scrollbar` 相关属性来达到修改原生滚动条样式，但这个属性部分浏览器上没有能够完美兼容，而且也难做到动画等交互效果的统一。需要做风格统一时，所以 elementUI 就自己实现了虚拟滚动条  
 **补充说明下：如何修改原生滚动条样式**
 
@@ -56,21 +56,21 @@
 **二、原生的滚动条该如何处理，如何隐藏？**  
 1、选中滚动条的元素（如下图）一直很奇怪，这里的`margin-bottom:-17px;margin-right:-17px;`是什么鬼？怎么会出现负的外边距
 
-![margin.jpg](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d677a544359f4468a0d939814ac15a48~tplv-k3u1fbpfcp-watermark.image?)
+![margin.jpg](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d677a544359f4468a0d939814ac15a48~tplv-k3u1fbpfcp-watermark.image)
 
 2、当手动把 maigin-right 改为 0 后，`margin-right:0;`，发现原生的滚动条又出现了，原来是通过负边距来隐藏原生滚动条的  
 **下图说明**：图中灰色的为原生滚动条，蓝色的为虚拟滚动条（为了对比明显，把虚拟滚动条的背景改成了蓝色）
 
-![origin.jpg](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4fb6e1062c3c4b74a09e8e0403c93303~tplv-k3u1fbpfcp-watermark.image?)
+![origin.jpg](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4fb6e1062c3c4b74a09e8e0403c93303~tplv-k3u1fbpfcp-watermark.image)
 3、还有一个问题：-17px 是怎么来的？ 这块放到下面的源码介绍中说明
 
 **三、滑动滚动条时对应的视图该如何变化，两者的对照关系是怎么样的？**  
 **敲重点**：这块的逻辑是最核心也是最复杂的，先说结论，等看过源码后就彻底理解了。  
 1、看图说话  
 **滚动视图 clientHeight 与 scrollHeight 的比例 = 虚拟滚动条 thumb 与滑轨 bar 的比例**
-![图2.jpg](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/45b4f591baf943908ff2af48b4ab08ee~tplv-k3u1fbpfcp-watermark.image?)
+![图2.jpg](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/45b4f591baf943908ff2af48b4ab08ee~tplv-k3u1fbpfcp-watermark.image)
 2、这样假如虚拟滚动条 thumb 向下滚动了 10%，对应的视图也应该向下滚动 10%；虚拟滚动条滚动到底，对应的视图也应该滚动到底。
-![图3.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/cc28d2ce17474f77b0b6060fe3ce908d~tplv-k3u1fbpfcp-watermark.image?)
+![图3.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/cc28d2ce17474f77b0b6060fe3ce908d~tplv-k3u1fbpfcp-watermark.image)
 知道了整体的流程后，就容易理解源码了
 
 ## 基本用法
@@ -95,7 +95,7 @@ el-scrollbar 滚动条组件用于优化页内滚动条的 UI 效果，使用时
 
 `scrollbar`  组件中嵌套  `wrap`和`view`  两层元素。`wrap`为滚动层，`view`为视图容器层。同时生成两种虚拟滚动条  `horizontal`  和  `vertical`
 
-![132.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/06353d81291241be94b9d94876a66dc5~tplv-k3u1fbpfcp-watermark.image?)
+![132.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/06353d81291241be94b9d94876a66dc5~tplv-k3u1fbpfcp-watermark.image)
 
 ### 生成 el-scrollbar html
 
@@ -206,38 +206,38 @@ export default {
 
 ```js
 // 利用闭包来存储原生滚动条的宽度
-let scrollBarWidth;
+let scrollBarWidth
 
 export default function () {
   // 如果是服务端直接返回0
-  if (Vue.prototype.$isServer) return 0;
+  if (Vue.prototype.$isServer) return 0
   // 如果scrollBarWidth值存在，返回已存储的值
-  if (scrollBarWidth !== undefined) return scrollBarWidth;
+  if (scrollBarWidth !== undefined) return scrollBarWidth
 
   /**
    * 1、生成一个div为outer，将该元素插入到body中
    * 2、生成一个div为inner（宽度为100%），将该元素插入outer中
    * 3、原生滚动条宽度：outer的offsetWidth - inner的offsetWidth
    */
-  const outer = document.createElement('div');
-  outer.className = 'el-scrollbar__wrap';
-  outer.style.visibility = 'hidden';
-  outer.style.width = '100px';
-  outer.style.position = 'absolute';
-  outer.style.top = '-9999px';
-  document.body.appendChild(outer);
-  const widthNoScroll = outer.offsetWidth;
-  outer.style.overflow = 'scroll';
+  const outer = document.createElement('div')
+  outer.className = 'el-scrollbar__wrap'
+  outer.style.visibility = 'hidden'
+  outer.style.width = '100px'
+  outer.style.position = 'absolute'
+  outer.style.top = '-9999px'
+  document.body.appendChild(outer)
+  const widthNoScroll = outer.offsetWidth
+  outer.style.overflow = 'scroll'
 
-  const inner = document.createElement('div');
-  inner.style.width = '100%';
-  outer.appendChild(inner);
+  const inner = document.createElement('div')
+  inner.style.width = '100%'
+  outer.appendChild(inner)
 
-  const widthWithScroll = inner.offsetWidth;
-  outer.parentNode.removeChild(outer);
-  scrollBarWidth = widthNoScroll - widthWithScroll;
+  const widthWithScroll = inner.offsetWidth
+  outer.parentNode.removeChild(outer)
+  scrollBarWidth = widthNoScroll - widthWithScroll
 
-  return scrollBarWidth;
+  return scrollBarWidth
 }
 ```
 
@@ -369,15 +369,15 @@ export default {
  *  }} 转化为 {height: 50%; transform: translateY(40%);}
  * */
 export function renderThumbStyle({ move, size, bar }) {
-  const style = {};
-  const translate = `translate${bar.axis}(${move}%)`;
+  const style = {}
+  const translate = `translate${bar.axis}(${move}%)`
 
-  style[bar.size] = size;
-  style.transform = translate;
-  style.msTransform = translate;
-  style.webkitTransform = translate;
+  style[bar.size] = size
+  style.transform = translate
+  style.msTransform = translate
+  style.webkitTransform = translate
 
-  return style;
+  return style
 }
 ```
 
@@ -390,7 +390,7 @@ export function renderThumbStyle({ move, size, bar }) {
 2、让滑块的中心滑动到鼠标点击的位置`offset - thumb.offsetHeight`的一半  
 3、计算出滑块滑动距离与滑轨的占比`thumbPositionPercentage`  
 4、根据：**视图 clientHeight 与 scrollHeight 的比例 = 虚拟滚动条 thumb 与滑轨 bar 的比例，反向得到，滑块滑块的距离的占比 = scrollTop 与 scrollHeight 的比例**，反向计算出视图的`scrollTop`
-![bar.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/66b201d2ac1446a48575e79161b41542~tplv-k3u1fbpfcp-watermark.image?)
+![bar.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/66b201d2ac1446a48575e79161b41542~tplv-k3u1fbpfcp-watermark.image)
 具体流程见`clickTrackHandler`方法
 
 ```js

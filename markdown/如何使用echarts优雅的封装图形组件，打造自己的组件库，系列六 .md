@@ -55,7 +55,7 @@ echarts**缺点**： 配置项非常多，特别是对于不太熟悉 echarts �
 ```
 
 最终效果
-![chartDemo.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/29e505f400c6485fb366a2b7573f05f3~tplv-k3u1fbpfcp-watermark.image?)
+![chartDemo.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/29e505f400c6485fb366a2b7573f05f3~tplv-k3u1fbpfcp-watermark.image)
 
 通过示例，可以看出图形组件的配置项相对于官网示例精简了许多
 
@@ -92,12 +92,12 @@ let option = {
     '#EAAFDC',
     '#90BBE0',
     '#EBCA9D',
-    '#BBB6F5'
+    '#BBB6F5',
   ],
   textStyle: {
     color: 'rgba(32,32,32,0.65)',
     fontSize: 12,
-    fontFamily: 'Source Han Sans CN,Arial,Microsoft Yahei'
+    fontFamily: 'Source Han Sans CN,Arial,Microsoft Yahei',
   },
   tooltip: {
     trigger: 'axis',
@@ -106,8 +106,8 @@ let option = {
     axisPointer: {
       lineStyle: { color: 'rgba(32,32,32,0.07)', type: 'dotted' },
       type: 'shadow',
-      z: 10
-    }
+      z: 10,
+    },
   },
   legend: {
     data: ['项目名称1', '项目名称2', '项目名称3'],
@@ -120,33 +120,33 @@ let option = {
     itemHeight: 10,
     textStyle: {
       color: 'rgba(32,32,32,0.65)',
-      fontSize: 12
-    }
+      fontSize: 12,
+    },
   },
   yAxis: {
     name: '指标单位',
     nameTextStyle: {
       color: 'rgba(32,32,32,0.45)',
       padding: [0, 10, 0, 0],
-      lineHeight: 30
-    }
+      lineHeight: 30,
+    },
   },
   series: [
     {
       type: 'bar',
       data: [40, 25, 35, 20, 28],
-      name: '项目名称1'
+      name: '项目名称1',
     },
     {
       type: 'bar',
       data: [9, 3, 15, 20, 7],
-      name: '项目名称2'
-    }
-  ]
-};
+      name: '项目名称2',
+    },
+  ],
+}
 
-Echarts.init(dom);
-Echarts.setOption(option);
+Echarts.init(dom)
+Echarts.setOption(option)
 ```
 
 虽然 echarts 也提供了[dataset 数据集](https://echarts.apache.org/handbook/zh/concepts/dataset/) 的方式，并没有解决样式与数据耦合的问题
@@ -259,17 +259,17 @@ Echarts.setOption(option);
 
 ```js
 // 定义白色主题
-Echarts.registerTheme('White', WhiteJSON);
+Echarts.registerTheme('White', WhiteJSON)
 // 定义黑色主题
-Echarts.registerTheme('Black', BlackJSON);
+Echarts.registerTheme('Black', BlackJSON)
 
 // 使用白色主题
-Echarts.init(option, 'White');
+Echarts.init(option, 'White')
 // 使用黑色主题
-Echarts.init(option, 'Black');
+Echarts.init(option, 'Black')
 
 // 换肤时，先销毁之前实例，再使用对应的主题样式
-echartsInstance.dispose();
+echartsInstance.dispose()
 ```
 
 ### 4、高度可扩展
@@ -282,50 +282,54 @@ echartsInstance.dispose();
 
 ```js
 // 引入deep-merge插件
-import DeepMerge from 'deep-merge';
+import DeepMerge from 'deep-merge'
 // 定义深度合并方法
 function merge(a, b) {
-  return DeepMerge((a, b) => b)(a, b);
+  return DeepMerge((a, b) => b)(a, b)
 }
 // barOptions是图形组件内置的柱状图配置项
 let barOptions = {
   legend: { bottom: 10 },
   color: ['#81adff', '#fcca6a', '#ff9e9e', '#54D5F0', '#FFA380'],
   grid: { top: 50, left: 32, right: 20, bottom: 48, containLabel: true },
-  xAxis: { axisLine: { show: false }, axisTick: { show: false }, splitLine: { show: false } },
+  xAxis: {
+    axisLine: { show: false },
+    axisTick: { show: false },
+    splitLine: { show: false },
+  },
   yAxis: {
     axisTick: { show: false },
     splitLine: { show: true, type: 'value' },
-    nameTextStyle: { padding: [0, 25, 0, 0] }
+    nameTextStyle: { padding: [0, 25, 0, 0] },
   },
-  tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } }
-};
+  tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+}
 
 // 将外部传入的chartOptions与barOptions进行深度合并，得到最终的options
 let chartOptions = {
   xAxis: {
-    data: ['2018年', '2019年', '2020年', '2021年', '2022年']
+    data: ['2018年', '2019年', '2020年', '2021年', '2022年'],
   },
   yAxis: { name: '指标单位' },
   series: [
     {
       name: '项目名称1',
-      data: [40, 25, 35, 20, 28]
+      data: [40, 25, 35, 20, 28],
     },
     {
       name: '项目名称2',
-      data: [9, 3, 15, 20, 7]
+      data: [9, 3, 15, 20, 7],
     },
     {
       name: '项目名称3',
-      data: [-15, -20, -10, -8, -6]
-    }
-  ]
-};
+      data: [-15, -20, -10, -8, -6],
+    },
+  ],
+}
 
-let option = merge(barOptions, chartOptions);
+let option = merge(barOptions, chartOptions)
 // 生成合并参数的柱状图
-Echarts.setOption(option);
+Echarts.setOption(option)
 ```
 
 **最终效果：**  
@@ -339,11 +343,11 @@ Echarts.setOption(option);
 
 ```js
 myChart.on('click', function (params) {
-  console.log(params);
-});
+  console.log(params)
+})
 myChart.on('legendselectchanged', function (params) {
-  console.log(params);
-});
+  console.log(params)
+})
 ```
 
 **如何对外暴露全部的实例事件呢？**
